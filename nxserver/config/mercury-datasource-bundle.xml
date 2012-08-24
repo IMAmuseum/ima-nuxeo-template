@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<component name="org.imamuseum.nuxeo.mercury.datasource">
+
+	<!--
+	We add a custom datasource, which is a MySQL database holding metadata about the IMA collecion
+
+	NOTE: The autoReconnect=true is important with MySQL!
+	-->
+
+	<extension target="org.nuxeo.runtime.datasource" point="datasources">
+		<datasource driverClassName="com.mysql.jdbc.Driver"
+			maxActive="100" maxIdle="30" maxWait="10000" name="jdbc/mercury">
+			<property name="url">jdbc:mysql://${mercury.db.host}:${mercury.db.port}/${mercury.db.name}?autoReconnect=true</property>
+			<property name="username">${mercury.db.user}</property>
+			<property name="password">${mercury.db.password}</property>
+		</datasource>
+	</extension>
+
+</component>

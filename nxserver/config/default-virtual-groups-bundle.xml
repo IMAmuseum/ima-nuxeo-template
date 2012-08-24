@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<component name="org.nuxeo.ecm.platform.usermanager.VirtualGroups">
+
+	<!--
+	We declare a user directory that supports both our Windows domain users as well
+	as local users in the SQL database.
+	-->
+
+	<require>org.nuxeo.ecm.platform.usermanager.UserManagerImpl</require>
+	
+	<extension target="org.nuxeo.ecm.platform.usermanager.UserService" point="userManager">
+
+		<userManager class="org.nuxeo.ecm.platform.usermanager.UserManagerImpl">
+		
+			<defaultAdministratorId>${imamuseum.admin.username}</defaultAdministratorId>
+			<administratorsGroup>${imamuseum.ldap.admingroup}</administratorsGroup>
+			<defaultGroup>members</defaultGroup>
+
+			<users>
+			    <directory>multiUserDirectory</directory>
+
+			    <!-- Declare a master admin user in case of LDAP problems -->
+				<virtualUser id="${imamuseum.admin.username}" searchable="false">
+					<password>${imamuseum.admin.password}</password>
+					<property name="firstName">${imamuseum.admin.firstName}</property>
+					<property name="lastName">${imamuseum.admin.lastName}</property>
+					<group>administrators</group>
+					<group>${imamuseum.ldap.admingroup}</group>
+				</virtualUser>
+			</users>
+
+			<groups>
+			    <directory>multiGroupDirectory</directory>
+			</groups>
+
+		</userManager>
+
+	</extension>
+
+</component>

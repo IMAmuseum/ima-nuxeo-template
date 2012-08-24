@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<component name="org.imamuseum.nuxeo.directories.multiUser">
+
+	<!--
+	This user directory combines our Windows domain and local SQL users
+	-->
+
+    <require>org.nuxeo.ecm.directory.sql.storage</require>
+
+	<extension target="org.nuxeo.ecm.directory.multi.MultiDirectoryFactory" point="directories">
+
+		<directory name="multiUserDirectory">
+			<schema>user</schema>
+			<idField>username</idField>
+			<passwordField>password</passwordField>
+			
+			<readOnly>true</readOnly>
+
+			<source name="ldapuser">
+				<subDirectory name="imartUserDirectory" />
+			</source>
+			<source name="sqluser" creation="true">
+			        <!-- Defined in org.nuxeo.ecm.directory.sql.storage -->
+				<subDirectory name="userDirectory" />
+			</source>
+		</directory>
+	</extension>
+
+</component>

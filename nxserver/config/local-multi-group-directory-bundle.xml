@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<component name="org.imamuseum.nuxeo.directories.multiGroup">
+
+	<!--
+	This group directory combines our Windows domain and local SQL users
+	-->
+
+	<require>org.nuxeo.ecm.directory.sql.storage</require>
+
+	<extension target="org.nuxeo.ecm.directory.multi.MultiDirectoryFactory" point="directories">
+
+		<directory name="multiGroupDirectory">
+			<schema>group</schema>
+			<idField>groupname</idField>
+			
+			<readOnly>true</readOnly>
+
+			<source name="ldapgroup">
+				<subDirectory name="imartGroupDirectory" />
+			</source>
+			<source name="sqlgroup" creation="true">
+			    <!-- Defined in org.nuxeo.ecm.directory.sql.storage -->
+				<subDirectory name="groupDirectory" />
+			</source>
+		</directory>
+	</extension>
+
+</component>

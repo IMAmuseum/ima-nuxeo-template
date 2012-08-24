@@ -1,0 +1,5 @@
+## Edit this file to customize your configuration ##
+ima.target=.
+
+# Set list of templates to include, comma separated values.
+nuxeo.template.includes=
